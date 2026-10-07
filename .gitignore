@@ -1,4 +1,6 @@
 models/
 venv_*/
-results/bench/*/server.log
+cache/
+results/
 __pycache__/
+*.pyc
