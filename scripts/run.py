@@ -33,7 +33,10 @@ class Runner:
         self.env = dict(os.environ if env is None else env)
         self.env.update(QUANT_RUN_DIR=str(self.directory), PYTHONUNBUFFERED="1",
                         HF_HOME=str(ROOT / "cache" / "huggingface"), VLLM_NO_USAGE_STATS="1",
-                        HF_HUB_DISABLE_TELEMETRY="1", TOKENIZERS_PARALLELISM="false", PIP_NO_CACHE_DIR="1")
+                        HF_HUB_DISABLE_TELEMETRY="1", TOKENIZERS_PARALLELISM="false", PIP_NO_CACHE_DIR="1",
+                        # Amendment A1 (2026-10-07): the pod image ships nvcc 12.8; FlashInfer's JIT needs
+                        # CUDA >= 12.9 to target SM120, so its sampler warmup fails. Use vLLM's native sampler.
+                        VLLM_USE_FLASHINFER_SAMPLER="0")
         self.events = []
 
     def stage(self, name, command, required=True, max_seconds=None):
