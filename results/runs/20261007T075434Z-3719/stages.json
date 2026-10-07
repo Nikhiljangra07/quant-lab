@@ -1,0 +1,138 @@
+[
+  {
+    "stage": "setup",
+    "command": [
+      "bash",
+      "/workspace/quant-lab/scripts/setup.sh"
+    ],
+    "required": true,
+    "started": "2026-10-07T07:54:34.614340+00:00",
+    "status": "PASS",
+    "ended": "2026-10-07T07:54:59.063145+00:00"
+  },
+  {
+    "stage": "prepare",
+    "command": [
+      "/workspace/quant-lab/venv_quant/bin/python",
+      "/workspace/quant-lab/scripts/prepare.py"
+    ],
+    "required": true,
+    "started": "2026-10-07T07:54:59.064166+00:00",
+    "status": "PASS",
+    "ended": "2026-10-07T07:55:11.296277+00:00"
+  },
+  {
+    "stage": "smoke-BF16",
+    "command": [
+      "/workspace/quant-lab/venv_serve/bin/python",
+      "/workspace/quant-lab/scripts/benchmark.py",
+      "BF16",
+      "--smoke-only"
+    ],
+    "required": true,
+    "started": "2026-10-07T07:55:11.297249+00:00",
+    "status": "PASS",
+    "ended": "2026-10-07T07:56:12.623522+00:00"
+  },
+  {
+    "stage": "quant-W4A16",
+    "command": [
+      "/workspace/quant-lab/venv_quant/bin/python",
+      "/workspace/quant-lab/scripts/quantize.py",
+      "--scheme",
+      "W4A16"
+    ],
+    "required": true,
+    "started": "2026-10-07T07:56:12.624485+00:00",
+    "status": "PASS",
+    "ended": "2026-10-07T08:06:20.884043+00:00"
+  },
+  {
+    "stage": "smoke-W4A16",
+    "command": [
+      "/workspace/quant-lab/venv_serve/bin/python",
+      "/workspace/quant-lab/scripts/benchmark.py",
+      "W4A16",
+      "--smoke-only"
+    ],
+    "required": true,
+    "started": "2026-10-07T08:06:21.705796+00:00",
+    "status": "PASS",
+    "ended": "2026-10-07T08:07:30.778599+00:00"
+  },
+  {
+    "stage": "eval-BF16",
+    "command": [
+      "/workspace/quant-lab/venv_serve/bin/python",
+      "/workspace/quant-lab/scripts/evaluate.py",
+      "BF16"
+    ],
+    "required": true,
+    "started": "2026-10-07T08:07:30.779470+00:00",
+    "status": "PASS",
+    "ended": "2026-10-07T08:10:59.817744+00:00"
+  },
+  {
+    "stage": "bench-BF16",
+    "command": [
+      "/workspace/quant-lab/venv_serve/bin/python",
+      "/workspace/quant-lab/scripts/benchmark.py",
+      "BF16"
+    ],
+    "required": true,
+    "started": "2026-10-07T08:10:59.818700+00:00",
+    "status": "PASS",
+    "ended": "2026-10-07T08:29:03.750651+00:00"
+  },
+  {
+    "stage": "eval-W4A16",
+    "command": [
+      "/workspace/quant-lab/venv_serve/bin/python",
+      "/workspace/quant-lab/scripts/evaluate.py",
+      "W4A16"
+    ],
+    "required": true,
+    "started": "2026-10-07T08:29:03.752298+00:00",
+    "status": "PASS",
+    "ended": "2026-10-07T08:32:45.155590+00:00"
+  },
+  {
+    "stage": "bench-W4A16",
+    "command": [
+      "/workspace/quant-lab/venv_serve/bin/python",
+      "/workspace/quant-lab/scripts/benchmark.py",
+      "W4A16"
+    ],
+    "required": true,
+    "started": "2026-10-07T08:32:45.156849+00:00",
+    "status": "PASS",
+    "ended": "2026-10-07T08:44:55.082802+00:00"
+  },
+  {
+    "stage": "quant-NVFP4",
+    "command": [
+      "/workspace/quant-lab/venv_quant/bin/python",
+      "/workspace/quant-lab/scripts/quantize.py",
+      "--scheme",
+      "NVFP4"
+    ],
+    "required": false,
+    "started": "2026-10-07T08:44:55.085163+00:00",
+    "status": "PASS",
+    "ended": "2026-10-07T08:49:49.951838+00:00"
+  },
+  {
+    "stage": "smoke-NVFP4",
+    "command": [
+      "/workspace/quant-lab/venv_serve/bin/python",
+      "/workspace/quant-lab/scripts/benchmark.py",
+      "NVFP4",
+      "--smoke-only"
+    ],
+    "required": false,
+    "started": "2026-10-07T08:49:49.952897+00:00",
+    "status": "NO-RESULT",
+    "reason": "RuntimeError: Exit code 1; see smoke-NVFP4.log",
+    "ended": "2026-10-07T08:50:16.071426+00:00"
+  }
+]

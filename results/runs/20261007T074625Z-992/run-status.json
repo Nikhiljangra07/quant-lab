@@ -1,0 +1,5 @@
+{
+  "status": "INCOMPLETE",
+  "reason": "RuntimeError: Exit code 1; see smoke-BF16.log",
+  "ended": "2026-10-07T07:53:04.879833+00:00"
+}

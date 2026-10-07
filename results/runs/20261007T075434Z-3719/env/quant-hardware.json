@@ -1,0 +1,17 @@
+{
+  "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+  "compute_capability": [
+    12,
+    0
+  ],
+  "total_memory_bytes": 101975851008,
+  "torch_cuda": "13.0",
+  "packages": {
+    "torch": "2.12.0",
+    "transformers": "5.10.1",
+    "compressed-tensors": "0.17.1",
+    "datasets": "5.0.0",
+    "llmcompressor": "0.12.0"
+  },
+  "bf16_smoke": "PASS"
+}

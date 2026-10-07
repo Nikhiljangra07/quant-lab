@@ -1,0 +1,16 @@
+{
+  "gsm8k": {
+    "exact_match,strict-match": 0.7862016679302501,
+    "exact_match_stderr,strict-match": 0.011293054698635055,
+    "exact_match,flexible-extract": 0.910538286580743,
+    "exact_match_stderr,flexible-extract": 0.007861583049939712
+  },
+  "ifeval": {
+    "prompt_level_strict_acc,none": 0.822550831792976,
+    "prompt_level_strict_acc_stderr,none": 0.01644074437969973,
+    "inst_level_strict_acc,none": 0.8812949640287769,
+    "prompt_level_loose_acc,none": 0.8576709796672828,
+    "prompt_level_loose_acc_stderr,none": 0.015035234562202742,
+    "inst_level_loose_acc,none": 0.9040767386091128
+  }
+}

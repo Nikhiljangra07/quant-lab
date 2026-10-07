@@ -1,63 +1,66 @@
 # quant-lab
 
-A supervised, budget-limited Qwen3-4B quantization/evaluation experiment. Read RUNBOOK.md for the measured question and acceptance rule. No quantization results exist yet.
+A one-afternoon, pre-registered quantization study of **Qwen3-4B-Instruct-2507** on a single RTX PRO 6000 Blackwell (96 GB, SM120), run on RunPod for about $5. Question: do W4A16 and NVFP4 quants of this model hold the BF16 reference on a reasoning eval and an instruction-following eval, and what do they buy in vLLM throughput?
 
-## What to rent
+Everything here is published: the frozen protocol, the go/no-go bars written before any GPU minute, the run that failed, the amendment that fixed it, the pre-registered result (a NO-GO), and an exploratory series that explains it. Solo work by Nikhil Jangra, October 7, 2026.
 
-- **One RTX PRO 6000 Blackwell, full 96GB**, not RTX 6000 Ada, A6000 or a MIG partition.
-- Linux x86_64, **Python 3.12**, an NVIDIA **580+ driver compatible with CUDA 13**. A recent Runpod PyTorch/CUDA image is suitable if it meets those requirements; the kit creates its own virtualenvs.
-- **100GB workspace volume** with at least 55 GiB free when setup starts; allow around 30GB container disk for image and temporary package installation. Keep the kit and Hugging Face cache under /workspace. Volume storage is separately billed.
-- SSH enabled, one GPU only. No public HTTP serving port is needed; servers bind to 127.0.0.1.
-- Record the displayed hourly USD price and the time you click Deploy. Share the SSH connection command and hourly price with the operator. No private SSH key or account password needs to be pasted into chat.
+## The pre-registered result
 
-Host driver compatibility is checked before installing environments, and each environment must pass a real BF16 CUDA test. Model loading is also smoke-tested before the full eval. Actual GPU execution remains to be verified on the rented pod.
+| arm | GSM8K strict-match | IFEval prompt-strict | weights | verdict |
+|---|---:|---:|---:|---|
+| BF16 reference | 80.52% | 82.26% | 8.05 GB | reference |
+| W4A16 GPTQ g128, all Linear (lm_head BF16) | 72.55% (−8.0) | 81.52% (−0.7) | 2.65 GB | **NO-GO** |
+| NVFP4 (W4A4 g16), `flashinfer_b12x` backend | — | — | 2.82 GB | **NO-RESULT** (kernel unavailable on the pod image, see log) |
 
-## Run on the pod
+Bars, written in [RUNBOOK.md](RUNBOOK.md) before spend: each quant within 2.0 percentage points of BF16 on both tasks. Full test sets (GSM8K 1,319, IFEval 541), greedy, seed 42, chat template, pinned lm-eval 0.4.13 task files and dataset revisions, calibration set audited for 8-word overlap with both evals (2 of 514 candidates rejected). Paired per-sample differences, generation-cap counts and descriptive intervals: [results/runs/20261007T075434Z-3719/RESULTS.md](results/runs/20261007T075434Z-3719/RESULTS.md).
 
-Upload the kit to /workspace/quant-lab, excluding local .git, caches, virtualenvs and prior result directories. Use an interactive, supervised SSH session:
+Throughput (vLLM 0.25.0, 1024 in / 1024 out, prefix caching off, medians of three repeats within 0.3%):
+
+| arm | c=1 tok/s | c=16 | c=64 |
+|---|---:|---:|---:|
+| BF16 | 144 | 1,622 | 3,486 |
+| W4A16 | 283 | 2,530 | 3,941 |
+
+The W4A16 recipe doubles single-stream decode and cuts the checkpoint to a third. It still fails the quality bar, so under this protocol it does not ship.
+
+## The exploratory series (outside the freeze)
+
+Chosen after seeing the result, so reported as hypotheses, single attempts each. Same base snapshot, calibration selection, task files, seeds and serving settings. Full table: [RESULTS-EXPLORATORY.md](results/runs/20261007T075434Z-3719/RESULTS-EXPLORATORY.md).
+
+| recipe | GSM8K | IFEval | weights | c=1 tok/s | verdict |
+|---|---:|---:|---:|---:|---|
+| W4A16 g32, all Linear | 76.35% (−4.2) | 80.59% (−1.7) | 2.82 GB | — | NO-GO |
+| W4A16 g128, **MLP only** (attention BF16) | 82.56% (+2.0) | 82.44% (+0.2) | 4.05 GB | 230 | GO |
+| NVFP4, **Marlin kernel** | 78.62% (−1.9) | 82.26% (0.0) | 2.82 GB | 262 | GO |
+| FP8 dynamic | 81.50% (+1.0) | 82.07% (−0.2) | 4.41 GB | — | GO |
+| INT8 W8A8 | — | — | 4.41 GB | — | unservable on SM120 in vLLM 0.25.0 |
+
+What the series says about the NO-GO: the loss comes from quantizing this 4B model's attention projections to INT4. Finer groups halve it; leaving q/k/v/o in BF16 removes it, for a fifth of the single-stream speedup and a third of the size saving. FP4 with group-16 scales (NVFP4) survives where INT4 does not. GSM8K strict-match also penalizes losing the `#### N` answer format: the lenient extractor's gap for the protocol W4A16 is 1.1 points, not 8. That is a hypothesis about format compliance, not a scored result.
+
+## What broke, and what was done about it
+
+The engineering log is [LOG.md](LOG.md). Short version:
+
+1. **FlashInfer vs the pod image.** The RunPod Ubuntu 24.04 image ships nvcc 12.8; FlashInfer 0.6.13 needs CUDA 12.9+ to target SM120, so every FlashInfer JIT path refused the card. This killed run 1 at the BF16 serving smoke (vLLM's default FlashInfer sampler), the pre-registered NVFP4 backend (`flashinfer_b12x` is only registered when that JIT works), and the auto-selected FlashInfer CUTLASS NVFP4 kernel. Amendment A1 switched vLLM to its native sampler (`VLLM_USE_FLASHINFER_SAMPLER=0`); the exploratory NVFP4 runs forced the Marlin kernel, which needs no JIT. Run 1 is retained as NO-RESULT.
+2. **INT8 on Blackwell.** vLLM's CUTLASS W8A8 INT8 path raises `Int8 not supported on SM120`; FP8 is the 8-bit option on this card.
+3. **An operator mistake.** One exploratory bench was queued with the wrong wait marker and started on top of a running server; killed within a minute, partial output removed, logged.
+
+## Reproduce
+
+Protocol: [RUNBOOK.md](RUNBOOK.md) (v2; the pre-spend v1 is kept as [RUNBOOK.v1.md](RUNBOOK.v1.md)), settings in [protocol.json](protocol.json), hash-locked environments in [requirements/](requirements/), CPU-only regression tests in [tests/](tests/) (`python3 -m unittest discover -s tests`).
+
+Rent one SM120 GPU on a Linux x86_64 host with Python 3.12 and an NVIDIA driver ≥ 580 (CUDA 13 wheels), with a 100 GB workspace. Upload the kit to `/workspace/quant-lab` (no `.git`, `results/`, `venv_*`, `cache/`) and run, in a supervised session:
 
 ```bash
-cd /workspace/quant-lab
-bash scripts/run_all.sh --supervised --rate 2.09 \
-  --pod-started '2026-10-07T08:00:00Z' --with-nvfp4
+bash scripts/run_all.sh --supervised --rate <USD per hour> --pod-started '<ISO time with zone>' --with-nvfp4
 ```
 
-Replace the example rate and timestamp with the **actual price and rental start**, including timezone. Do not copy the example timestamp. Omit --with-nvfp4 to run just the required BF16/W4A16 comparison. Python 3.12 must be the python3 used to run the kit.
+The runner stops compute at the budget deadline; it cannot stop the rental. Copy `results/runs/<id>/` off the pod, then stop the pod yourself. If your image's nvcc is below 12.9, expect the FlashInfer paths above to fail the same way; the A1 env var is already in the runner.
 
-The runner prints stage progress. Full output is in results/runs/<id>/<stage>.log. Inspect from another SSH shell if needed:
+Exploratory: [explore/](explore/) holds `explore_quant.py`, the `run_explore*.sh` sequence exactly as run, and `summarize_explore.py`.
 
-```bash
-cat results/LATEST
-# Use the printed run ID below:
-tail -f results/runs/RUN_ID/setup.log
-```
+Every artifact under `results/runs/<id>/` is what the pod produced: stage logs, per-sample scores with document and prompt hashes, generation telemetry, benchmark JSON, `pip freeze`, `nvidia-smi`, the frozen source copy and its hashes. Checkpoints are not in git (sizes in the tables); the GO candidates are on Hugging Face under `Nikhil0097`.
 
-Successful completion means the planned pipeline completed; inspect RESULTS.md for GO, NO-GO and NO-RESULT. A successful pipeline does not mean the quant passed the quality threshold. The --supervised flag acknowledges that a human will stop the rental when needed.
+## Credits and tooling
 
-## Retrieve before stopping
-
-From the local computer, use your supplied SSH hostname/port and the printed run ID:
-
-```bash
-scp -P SSH_PORT -r root@SSH_HOST:/workspace/quant-lab/results/runs/RUN_ID ./quant-results-RUN_ID
-```
-
-This directory includes both raw scientific evidence and quantized model files; copying several gigabytes takes time. Leave budget for retrieval. If time is tight, retrieve the small logs/reports/eval/bench/calibration/source files first, then weights if affordable. **Stop the pod in the Runpod console immediately after retrieval, including on failure. Stopping Python alone does not stop rental charges.** Do not terminate a pod before retrieving files from a non-persistent disk. Stopped persistent volumes can still incur storage charges.
-
-## Local checks without a GPU
-
-```bash
-python3 -m unittest discover -s tests -v
-```
-
-Tests cover invalid/missing evidence, paired scoring, budget math, required-stage failure, process cleanup, HTTP health and shortened benchmark outputs. No GPU libraries or model weights are needed for these tests. See VALIDATION.md for completed checks and remaining GPU checks.
-
-## Files
-
-- protocol.json: exact model/dataset SHAs and scientific settings.
-- requirements/: hash-locked Linux environments and direct dependency inputs.
-- scripts/: portable paths, setup/preflight, calibration audit, quantization, measured eval, benchmarks, deadline runner and strict collector.
-- results/runs/<id>/freeze.json and source/: actual settings plus complete frozen source for each attempt.
-- results/runs/<id>/RESULTS.md and summary.json: human-readable and structured findings.
-
-Sources used for the environment/API checks: [LLM Compressor](https://docs.vllm.ai/projects/llm-compressor/en/latest/examples/quantization_w4a4_fp4/), [vLLM 0.25 SM120 backend](https://github.com/vllm-project/vllm/blob/v0.25.0/vllm/model_executor/kernels/linear/nvfp4/flashinfer.py), [harness 0.4.13](https://pypi.org/project/lm-eval/0.4.13/). The package wheels and dataset revisions were checked against public registry metadata on October 7, 2026.
+Protocol v2 was drafted with Codex and verified against the pinned package sources before the first GPU minute; the pod runs, amendments and write-up were driven with Claude Code. Design choices, the go/no-go bars and the interpretation are mine. Base model: Qwen3-4B-Instruct-2507 (Apache-2.0). Quantization: llm-compressor 0.12.0. Serving and benchmarks: vLLM 0.25.0. Evals: lm-evaluation-harness 0.4.13.

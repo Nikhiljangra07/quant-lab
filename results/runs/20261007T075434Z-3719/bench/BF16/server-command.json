@@ -1,0 +1,25 @@
+{
+  "command": [
+    "/workspace/quant-lab/venv_serve/bin/vllm",
+    "serve",
+    "/workspace/quant-lab/cache/huggingface/hub/models--Qwen--Qwen3-4B-Instruct-2507/snapshots/cdbee75f17c01a7cc42f958dc650907174af0554",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "45111",
+    "--served-model-name",
+    "quant-lab-BF16-45111",
+    "--dtype",
+    "bfloat16",
+    "--max-model-len",
+    "4096",
+    "--gpu-memory-utilization",
+    "0.85",
+    "--seed",
+    "42",
+    "--no-enable-prefix-caching",
+    "--generation-config",
+    "vllm"
+  ],
+  "started": "2026-10-07T08:10:59.865939+00:00"
+}

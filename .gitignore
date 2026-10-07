@@ -1,6 +1,12 @@
 models/
 venv_*/
 cache/
-results/
 __pycache__/
 *.pyc
+results/manual/
+results/LATEST
+results/console*.log
+results/runs/*/models/
+results/runs/*/explore/*/model/
+results/runs/*/bench/*/server.log
+results/runs/*/explore/*/bench/server.log

@@ -1,0 +1,38 @@
+[
+  {
+    "stage": "setup",
+    "command": [
+      "bash",
+      "/workspace/quant-lab/scripts/setup.sh"
+    ],
+    "required": true,
+    "started": "2026-10-07T07:46:25.835995+00:00",
+    "status": "PASS",
+    "ended": "2026-10-07T07:50:12.075510+00:00"
+  },
+  {
+    "stage": "prepare",
+    "command": [
+      "/workspace/quant-lab/venv_quant/bin/python",
+      "/workspace/quant-lab/scripts/prepare.py"
+    ],
+    "required": true,
+    "started": "2026-10-07T07:50:12.076327+00:00",
+    "status": "PASS",
+    "ended": "2026-10-07T07:50:50.702095+00:00"
+  },
+  {
+    "stage": "smoke-BF16",
+    "command": [
+      "/workspace/quant-lab/venv_serve/bin/python",
+      "/workspace/quant-lab/scripts/benchmark.py",
+      "BF16",
+      "--smoke-only"
+    ],
+    "required": true,
+    "started": "2026-10-07T07:50:50.703218+00:00",
+    "status": "NO-RESULT",
+    "reason": "RuntimeError: Exit code 1; see smoke-BF16.log",
+    "ended": "2026-10-07T07:53:04.878829+00:00"
+  }
+]

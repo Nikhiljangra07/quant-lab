@@ -1,0 +1,68 @@
+{
+  "version": 2,
+  "seed": 42,
+  "base": {
+    "id": "Qwen/Qwen3-4B-Instruct-2507",
+    "revision": "cdbee75f17c01a7cc42f958dc650907174af0554"
+  },
+  "calibration": {
+    "id": "HuggingFaceH4/ultrachat_200k",
+    "revision": "8049631c405ae6576f93f445c6b8166f76f5505a",
+    "split": "train_sft",
+    "samples": 512,
+    "max_tokens": 2048,
+    "shingle_words": 8
+  },
+  "evals": {
+    "gsm8k": {
+      "id": "openai/gsm8k",
+      "revision": "740312add88f781978c0658806c59bc2815b9866",
+      "config": "main",
+      "split": "test",
+      "fewshot_split": "train",
+      "fewshot": 5,
+      "max_gen_toks": 1024,
+      "metric": "exact_match,strict-match"
+    },
+    "ifeval": {
+      "id": "google/IFEval",
+      "revision": "966cd89545d6b6acfd7638bc708b98261ca58e84",
+      "config": null,
+      "split": "train",
+      "fewshot": 0,
+      "max_gen_toks": 1280,
+      "metric": "prompt_level_strict_acc,none"
+    }
+  },
+  "serving": {
+    "max_model_len": 4096,
+    "dtype": "bfloat16",
+    "gpu_memory_utilization": 0.85,
+    "enable_prefix_caching": false,
+    "nvfp4_linear_backend": "flashinfer_b12x"
+  },
+  "bench": {
+    "input_tokens": 1024,
+    "output_tokens": 1024,
+    "concurrency": [
+      1,
+      16,
+      64
+    ],
+    "prompts": {
+      "1": 16,
+      "16": 128,
+      "64": 256
+    },
+    "repetitions": 3,
+    "warmups": 4,
+    "ignore_eos": true
+  },
+  "acceptance_margin_pp": 2.0,
+  "budget": {
+    "cap_usd": 8.0,
+    "reserve_usd": 1.0,
+    "setup_minutes": 45,
+    "optional_min_remaining_minutes": 35
+  }
+}

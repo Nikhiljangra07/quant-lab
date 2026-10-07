@@ -1,0 +1,4 @@
+vllm==0.25.0
+lm_eval[vllm,ifeval]==0.4.13
+transformers==5.10.1
+datasets==5.0.0

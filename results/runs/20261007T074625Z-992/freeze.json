@@ -1,0 +1,96 @@
+{
+  "created": "2026-10-07T07:46:25.835758+00:00",
+  "source_sha256": {
+    "RUNBOOK.md": "0d49f7cfb5aa6d0d0c070e57b61ded3daeefba70c24ccc68a5c5554d6ca104d3",
+    "protocol.json": "006eeb301b1dc45ce7e4ba7d5d0918f07314ac4055de4495e2c065052b8451e2",
+    "requirements/quant.in": "c331b5cbc255c1b817517d44ce95d0a61bd37a5a9a03db9436f01db862c5b59f",
+    "requirements/quant.lock": "6565c01ec5ae956d7dff5db4178d3acd852160b5ed07aae95a7b9f7e5bbd25c2",
+    "requirements/serve.in": "57bf82179b53016e3fd8bd6b382c5b2bd99d6cbb02f96bdbcb778f6e59fe0dc7",
+    "requirements/serve.lock": "54d40abeffdb082f73a8be52bb8f08618bad07b6dac983664da9eeea2de03157",
+    "scripts/bench.sh": "4d2db865868588612fcf3c9252267d0ec7f863a6c38095498f9c82a7573fb3bf",
+    "scripts/benchmark.py": "997d5b67125f8e604db2ef7e8bb4f35ffab1f2782d12bba9979f7246467440f0",
+    "scripts/collect.py": "219c7b145594206d644870b38b67dc7210f41398910588fd94b7fe8ee154296c",
+    "scripts/common.py": "302a5593d43156d37d28452d3685f7120f177a233ca4337f60a833521fa6134f",
+    "scripts/eval.sh": "b81ae4af9cb707995747235b42db32a78aba36786fb447571e917d13006dbfc7",
+    "scripts/evaluate.py": "df99ef25a235f9ee7bfd22d7d96bd0aba724ddd656080786cc384789152b5e4c",
+    "scripts/preflight.py": "7134a173c4162b674a34d98c3031488ee71a0457427c94ba7befca728ce916fa",
+    "scripts/prepare.py": "74fc847bcb693af24c42a2be138a6340f1e07a02d6700b5f01fb829f33c73170",
+    "scripts/quantize.py": "c2bafbd198b34413c32e5172b62a92a303cb1b65df47f5af2f1a41b6e0640bbd",
+    "scripts/run.py": "f8724e90bcc749ef2bc16d3f95d9a3af3c70716d83d0f74242f193ed83e652d7",
+    "scripts/run_all.sh": "66999427727fd024428b38c1421dd274c044a1c51442235abe5ea97beec18985",
+    "scripts/setup.sh": "4d59978b05f892817b0795f82d49fd38b00413bb2ee80df2077c3f86e7a4e7b1"
+  },
+  "protocol": {
+    "version": 2,
+    "seed": 42,
+    "base": {
+      "id": "Qwen/Qwen3-4B-Instruct-2507",
+      "revision": "cdbee75f17c01a7cc42f958dc650907174af0554"
+    },
+    "calibration": {
+      "id": "HuggingFaceH4/ultrachat_200k",
+      "revision": "8049631c405ae6576f93f445c6b8166f76f5505a",
+      "split": "train_sft",
+      "samples": 512,
+      "max_tokens": 2048,
+      "shingle_words": 8
+    },
+    "evals": {
+      "gsm8k": {
+        "id": "openai/gsm8k",
+        "revision": "740312add88f781978c0658806c59bc2815b9866",
+        "config": "main",
+        "split": "test",
+        "fewshot_split": "train",
+        "fewshot": 5,
+        "max_gen_toks": 1024,
+        "metric": "exact_match,strict-match"
+      },
+      "ifeval": {
+        "id": "google/IFEval",
+        "revision": "966cd89545d6b6acfd7638bc708b98261ca58e84",
+        "config": null,
+        "split": "train",
+        "fewshot": 0,
+        "max_gen_toks": 1280,
+        "metric": "prompt_level_strict_acc,none"
+      }
+    },
+    "serving": {
+      "max_model_len": 4096,
+      "dtype": "bfloat16",
+      "gpu_memory_utilization": 0.85,
+      "enable_prefix_caching": false,
+      "nvfp4_linear_backend": "flashinfer_b12x"
+    },
+    "bench": {
+      "input_tokens": 1024,
+      "output_tokens": 1024,
+      "concurrency": [
+        1,
+        16,
+        64
+      ],
+      "prompts": {
+        "1": 16,
+        "16": 128,
+        "64": 256
+      },
+      "repetitions": 3,
+      "warmups": 4,
+      "ignore_eos": true
+    },
+    "acceptance_margin_pp": 2.0,
+    "budget": {
+      "cap_usd": 8.0,
+      "reserve_usd": 1.0,
+      "setup_minutes": 45,
+      "optional_min_remaining_minutes": 35
+    }
+  },
+  "rate_usd_hour": 2.19,
+  "pod_started": "2026-10-07T07:40:00Z",
+  "compute_deadline_utc": "2026-10-07T10:51:46.849315+00:00",
+  "billing": "SUPERVISED: process deadline does not stop Runpod rental/storage billing",
+  "optional_nvfp4": true
+}

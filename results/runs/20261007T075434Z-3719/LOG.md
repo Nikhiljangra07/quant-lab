@@ -1,0 +1,15 @@
+# Run events
+
+Immutable source hashes are in freeze.json. Full stdout/stderr is in each named stage log.
+
+- 2026-10-07T07:54:34.614340+00:00 setup: PASS 
+- 2026-10-07T07:54:59.064166+00:00 prepare: PASS 
+- 2026-10-07T07:55:11.297249+00:00 smoke-BF16: PASS 
+- 2026-10-07T07:56:12.624485+00:00 quant-W4A16: PASS 
+- 2026-10-07T08:06:21.705796+00:00 smoke-W4A16: PASS 
+- 2026-10-07T08:07:30.779470+00:00 eval-BF16: PASS 
+- 2026-10-07T08:10:59.818700+00:00 bench-BF16: PASS 
+- 2026-10-07T08:29:03.752298+00:00 eval-W4A16: PASS 
+- 2026-10-07T08:32:45.156849+00:00 bench-W4A16: PASS 
+- 2026-10-07T08:44:55.085163+00:00 quant-NVFP4: PASS 
+- 2026-10-07T08:49:49.952897+00:00 smoke-NVFP4: NO-RESULT RuntimeError: Exit code 1; see smoke-NVFP4.log

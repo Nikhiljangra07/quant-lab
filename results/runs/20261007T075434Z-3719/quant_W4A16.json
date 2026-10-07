@@ -1,0 +1,52 @@
+{
+  "scheme": "W4A16",
+  "base": {
+    "id": "Qwen/Qwen3-4B-Instruct-2507",
+    "revision": "cdbee75f17c01a7cc42f958dc650907174af0554"
+  },
+  "calibration_sha256": "0b9467e69da38db387c7b1cc22b84a8ab880df656183e843b115752b56f4aa18",
+  "n_calib": 512,
+  "quantization_config": {
+    "config_groups": {
+      "group_0": {
+        "format": "pack-quantized",
+        "input_activations": null,
+        "output_activations": null,
+        "targets": [
+          "Linear"
+        ],
+        "weights": {
+          "actorder": "static",
+          "block_structure": null,
+          "dynamic": false,
+          "group_size": 128,
+          "num_bits": 4,
+          "observer": "memoryless_minmax",
+          "observer_kwargs": {},
+          "scale_dtype": null,
+          "strategy": "group",
+          "symmetric": true,
+          "type": "int",
+          "zp_dtype": null
+        }
+      }
+    },
+    "format": "pack-quantized",
+    "global_compression_ratio": null,
+    "ignore": [
+      "lm_head"
+    ],
+    "kv_cache_scheme": null,
+    "quant_method": "compressed-tensors",
+    "quantization_status": "compressed",
+    "sparsity_config": {},
+    "transform_config": {},
+    "version": "0.17.1"
+  },
+  "size_bytes": 2651839568,
+  "safetensors_sha256": {
+    "model.safetensors": "ea5becc089309d86b5622eac4b9c282cab69768e3cd1dc7c294f36ebe091eda5"
+  },
+  "seconds": 601.4652621110436,
+  "peak_allocated_bytes": 10348872704
+}

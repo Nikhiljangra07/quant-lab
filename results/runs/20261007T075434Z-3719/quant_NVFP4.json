@@ -1,0 +1,65 @@
+{
+  "scheme": "NVFP4",
+  "base": {
+    "id": "Qwen/Qwen3-4B-Instruct-2507",
+    "revision": "cdbee75f17c01a7cc42f958dc650907174af0554"
+  },
+  "calibration_sha256": "0b9467e69da38db387c7b1cc22b84a8ab880df656183e843b115752b56f4aa18",
+  "n_calib": 512,
+  "quantization_config": {
+    "config_groups": {
+      "group_0": {
+        "format": "nvfp4-pack-quantized",
+        "input_activations": {
+          "actorder": null,
+          "block_structure": null,
+          "dynamic": "local",
+          "group_size": 16,
+          "num_bits": 4,
+          "observer": "static_minmax",
+          "observer_kwargs": {},
+          "scale_dtype": "torch.float8_e4m3fn",
+          "strategy": "tensor_group",
+          "symmetric": true,
+          "type": "float",
+          "zp_dtype": null
+        },
+        "output_activations": null,
+        "targets": [
+          "Linear"
+        ],
+        "weights": {
+          "actorder": null,
+          "block_structure": null,
+          "dynamic": false,
+          "group_size": 16,
+          "num_bits": 4,
+          "observer": "memoryless_minmax",
+          "observer_kwargs": {},
+          "scale_dtype": "torch.float8_e4m3fn",
+          "strategy": "tensor_group",
+          "symmetric": true,
+          "type": "float",
+          "zp_dtype": null
+        }
+      }
+    },
+    "format": "nvfp4-pack-quantized",
+    "global_compression_ratio": null,
+    "ignore": [
+      "lm_head"
+    ],
+    "kv_cache_scheme": null,
+    "quant_method": "compressed-tensors",
+    "quantization_status": "compressed",
+    "sparsity_config": {},
+    "transform_config": {},
+    "version": "0.17.1"
+  },
+  "size_bytes": 2822178072,
+  "safetensors_sha256": {
+    "model.safetensors": "b7b26d1743b5e7c588fdffd150820b78b35ab88c12383fcdb3b1f44a5ede74a7"
+  },
+  "seconds": 286.9263156000525,
+  "peak_allocated_bytes": 9866274816
+}

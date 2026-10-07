@@ -1,0 +1,119 @@
+{
+  "arms": {
+    "BF16": {
+      "verdict": "NO-RESULT",
+      "errors": [
+        "gsm8k: FileNotFoundError: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/eval/BF16/results_gsm8k.json'",
+        "ifeval: FileNotFoundError: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/eval/BF16/results_ifeval.json'"
+      ],
+      "scores": {},
+      "length_stops": {},
+      "size_bytes": 8044982000
+    },
+    "W4A16": {
+      "verdict": "NO-RESULT",
+      "errors": [
+        "gsm8k: FileNotFoundError: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/eval/W4A16/results_gsm8k.json'",
+        "ifeval: FileNotFoundError: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/eval/W4A16/results_ifeval.json'",
+        "quantization: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/quant_W4A16.json'",
+        "BF16 reference incomplete"
+      ],
+      "scores": {},
+      "length_stops": {},
+      "size_bytes": null
+    },
+    "NVFP4": {
+      "verdict": "NO-RESULT",
+      "errors": [
+        "gsm8k: FileNotFoundError: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/eval/NVFP4/results_gsm8k.json'",
+        "ifeval: FileNotFoundError: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/eval/NVFP4/results_ifeval.json'",
+        "quantization: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/quant_NVFP4.json'",
+        "BF16 reference incomplete"
+      ],
+      "scores": {},
+      "length_stops": {},
+      "size_bytes": null
+    }
+  },
+  "warnings": [],
+  "benchmark": {
+    "BF16": {
+      "1": {
+        "status": "NO-RESULT",
+        "errors": [
+          "c1-r1.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/BF16/c1-r1.json'",
+          "c1-r2.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/BF16/c1-r2.json'",
+          "c1-r3.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/BF16/c1-r3.json'"
+        ]
+      },
+      "16": {
+        "status": "NO-RESULT",
+        "errors": [
+          "c16-r1.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/BF16/c16-r1.json'",
+          "c16-r2.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/BF16/c16-r2.json'",
+          "c16-r3.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/BF16/c16-r3.json'"
+        ]
+      },
+      "64": {
+        "status": "NO-RESULT",
+        "errors": [
+          "c64-r1.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/BF16/c64-r1.json'",
+          "c64-r2.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/BF16/c64-r2.json'",
+          "c64-r3.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/BF16/c64-r3.json'"
+        ]
+      }
+    },
+    "W4A16": {
+      "1": {
+        "status": "NO-RESULT",
+        "errors": [
+          "c1-r1.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/W4A16/c1-r1.json'",
+          "c1-r2.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/W4A16/c1-r2.json'",
+          "c1-r3.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/W4A16/c1-r3.json'"
+        ]
+      },
+      "16": {
+        "status": "NO-RESULT",
+        "errors": [
+          "c16-r1.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/W4A16/c16-r1.json'",
+          "c16-r2.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/W4A16/c16-r2.json'",
+          "c16-r3.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/W4A16/c16-r3.json'"
+        ]
+      },
+      "64": {
+        "status": "NO-RESULT",
+        "errors": [
+          "c64-r1.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/W4A16/c64-r1.json'",
+          "c64-r2.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/W4A16/c64-r2.json'",
+          "c64-r3.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/W4A16/c64-r3.json'"
+        ]
+      }
+    },
+    "NVFP4": {
+      "1": {
+        "status": "NO-RESULT",
+        "errors": [
+          "c1-r1.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/NVFP4/c1-r1.json'",
+          "c1-r2.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/NVFP4/c1-r2.json'",
+          "c1-r3.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/NVFP4/c1-r3.json'"
+        ]
+      },
+      "16": {
+        "status": "NO-RESULT",
+        "errors": [
+          "c16-r1.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/NVFP4/c16-r1.json'",
+          "c16-r2.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/NVFP4/c16-r2.json'",
+          "c16-r3.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/NVFP4/c16-r3.json'"
+        ]
+      },
+      "64": {
+        "status": "NO-RESULT",
+        "errors": [
+          "c64-r1.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/NVFP4/c64-r1.json'",
+          "c64-r2.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/NVFP4/c64-r2.json'",
+          "c64-r3.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T074625Z-992/bench/NVFP4/c64-r3.json'"
+        ]
+      }
+    }
+  }
+}

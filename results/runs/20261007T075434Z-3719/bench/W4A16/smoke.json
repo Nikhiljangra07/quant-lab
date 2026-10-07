@@ -1,0 +1,38 @@
+{
+  "id": "chatcmpl-9dd24aad968b6e48",
+  "object": "chat.completion",
+  "created": 1791362001,
+  "model": "quant-lab-W4A16-44065",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "2 + 2 = 4.",
+        "refusal": null,
+        "annotations": null,
+        "audio": null,
+        "function_call": null,
+        "reasoning": null
+      },
+      "logprobs": null,
+      "finish_reason": "stop",
+      "stop_reason": null,
+      "token_ids": null,
+      "routed_experts": null
+    }
+  ],
+  "service_tier": null,
+  "system_fingerprint": "vllm-0.25.0-12e6b799",
+  "usage": {
+    "prompt_tokens": 19,
+    "total_tokens": 28,
+    "completion_tokens": 9,
+    "prompt_tokens_details": null
+  },
+  "prompt_logprobs": null,
+  "prompt_token_ids": null,
+  "prompt_text": null,
+  "kv_transfer_params": null,
+  "metrics": null
+}

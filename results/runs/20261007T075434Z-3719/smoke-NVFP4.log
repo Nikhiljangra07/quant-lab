@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/workspace/quant-lab/scripts/benchmark.py", line 103, in <module>
+    main()
+  File "/workspace/quant-lab/scripts/benchmark.py", line 61, in main
+    raise RuntimeError(f"Server exited {server.returncode}; see {dest}/server.log")
+RuntimeError: Server exited 1; see /workspace/quant-lab/results/runs/20261007T075434Z-3719/bench/NVFP4/server.log

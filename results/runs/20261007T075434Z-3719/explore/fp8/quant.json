@@ -1,0 +1,59 @@
+{
+  "variant": "fp8",
+  "seconds": 3,
+  "size_bytes": 4413908064,
+  "quantization_config": {
+    "config_groups": {
+      "group_0": {
+        "format": "float-quantized",
+        "input_activations": {
+          "actorder": null,
+          "block_structure": null,
+          "dynamic": true,
+          "group_size": null,
+          "num_bits": 8,
+          "observer": null,
+          "observer_kwargs": {},
+          "scale_dtype": null,
+          "strategy": "token",
+          "symmetric": true,
+          "type": "float",
+          "zp_dtype": null
+        },
+        "output_activations": null,
+        "targets": [
+          "Linear"
+        ],
+        "weights": {
+          "actorder": null,
+          "block_structure": null,
+          "dynamic": false,
+          "group_size": null,
+          "num_bits": 8,
+          "observer": "memoryless_minmax",
+          "observer_kwargs": {},
+          "scale_dtype": null,
+          "strategy": "channel",
+          "symmetric": true,
+          "type": "float",
+          "zp_dtype": null
+        }
+      }
+    },
+    "format": "float-quantized",
+    "global_compression_ratio": null,
+    "ignore": [
+      "lm_head"
+    ],
+    "kv_cache_scheme": null,
+    "quant_method": "compressed-tensors",
+    "quantization_status": "compressed",
+    "sparsity_config": {},
+    "transform_config": {},
+    "version": "0.17.1"
+  },
+  "base": {
+    "id": "Qwen/Qwen3-4B-Instruct-2507",
+    "revision": "cdbee75f17c01a7cc42f958dc650907174af0554"
+  }
+}

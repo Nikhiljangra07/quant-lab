@@ -1,0 +1,27 @@
+{
+  "command": [
+    "/workspace/quant-lab/venv_serve/bin/vllm",
+    "serve",
+    "/workspace/quant-lab/results/runs/20261007T075434Z-3719/models/NVFP4",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "58827",
+    "--served-model-name",
+    "quant-lab-NVFP4-58827",
+    "--dtype",
+    "bfloat16",
+    "--max-model-len",
+    "4096",
+    "--gpu-memory-utilization",
+    "0.85",
+    "--seed",
+    "42",
+    "--no-enable-prefix-caching",
+    "--generation-config",
+    "vllm",
+    "--linear-backend",
+    "flashinfer_b12x"
+  ],
+  "started": "2026-10-07T08:49:50.016358+00:00"
+}

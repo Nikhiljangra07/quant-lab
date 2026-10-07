@@ -1,0 +1,209 @@
+{
+  "arms": {
+    "BF16": {
+      "verdict": "REFERENCE",
+      "errors": [],
+      "scores": {
+        "gsm8k": 0.8051554207733131,
+        "ifeval": 0.822550831792976
+      },
+      "length_stops": {
+        "gsm8k": 14,
+        "ifeval": 28
+      },
+      "size_bytes": 8044982000
+    },
+    "W4A16": {
+      "verdict": "NO-GO",
+      "errors": [],
+      "scores": {
+        "gsm8k": 0.7255496588324488,
+        "ifeval": 0.8151571164510166
+      },
+      "length_stops": {
+        "gsm8k": 21,
+        "ifeval": 33
+      },
+      "size_bytes": 2651839568,
+      "comparisons": {
+        "gsm8k": {
+          "delta_pp": -7.960576194086428,
+          "normal_95_interval_pp": [
+            -10.33271703538404,
+            -5.588435352788818
+          ],
+          "n": 1319,
+          "quant_only_passes": 79,
+          "bf16_only_passes": 184
+        },
+        "ifeval": {
+          "delta_pp": -0.7393715341959335,
+          "normal_95_interval_pp": [
+            -2.9142417426256393,
+            1.4354986742337723
+          ],
+          "n": 541,
+          "quant_only_passes": 16,
+          "bf16_only_passes": 20
+        }
+      }
+    },
+    "NVFP4": {
+      "verdict": "NO-RESULT",
+      "errors": [
+        "gsm8k: FileNotFoundError: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T075434Z-3719/eval/NVFP4/results_gsm8k.json'",
+        "ifeval: FileNotFoundError: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T075434Z-3719/eval/NVFP4/results_ifeval.json'"
+      ],
+      "scores": {},
+      "length_stops": {},
+      "size_bytes": 2822178072
+    }
+  },
+  "warnings": [],
+  "benchmark": {
+    "BF16": {
+      "1": {
+        "status": "VALID",
+        "errors": [],
+        "output_throughput": {
+          "median": 143.95258703920305,
+          "min": 143.9383535196347,
+          "max": 144.24339869891412
+        },
+        "mean_ttft_ms": {
+          "median": 42.53460861946223,
+          "min": 39.398592060024384,
+          "max": 43.08438151201699
+        },
+        "median_tpot_ms": {
+          "median": 6.910585087541042,
+          "min": 6.900998675432839,
+          "max": 6.9112793695161585
+        }
+      },
+      "16": {
+        "status": "VALID",
+        "errors": [],
+        "output_throughput": {
+          "median": 1621.77683698656,
+          "min": 1620.6186293833796,
+          "max": 1623.0745507575666
+        },
+        "mean_ttft_ms": {
+          "median": 266.91001070321363,
+          "min": 265.8980634587351,
+          "max": 273.13014294122695
+        },
+        "median_tpot_ms": {
+          "median": 9.609260208682153,
+          "min": 9.572536723776098,
+          "max": 9.611007916915867
+        }
+      },
+      "64": {
+        "status": "VALID",
+        "errors": [],
+        "output_throughput": {
+          "median": 3485.8257181034937,
+          "min": 3478.1242206605784,
+          "max": 3490.06425614431
+        },
+        "mean_ttft_ms": {
+          "median": 625.1077084739336,
+          "min": 615.3572498506037,
+          "max": 637.1375242806607
+        },
+        "median_tpot_ms": {
+          "median": 17.772729834837556,
+          "min": 17.751583680389896,
+          "max": 17.831790304498316
+        }
+      }
+    },
+    "W4A16": {
+      "1": {
+        "status": "VALID",
+        "errors": [],
+        "output_throughput": {
+          "median": 283.22234006163745,
+          "min": 280.02647805691294,
+          "max": 283.65144098240086
+        },
+        "mean_ttft_ms": {
+          "median": 38.122684687550645,
+          "min": 36.36483124864753,
+          "max": 38.39350330963498
+        },
+        "median_tpot_ms": {
+          "median": 3.493582977030703,
+          "min": 3.4932950987250253,
+          "max": 3.5312638068635414
+        }
+      },
+      "16": {
+        "status": "VALID",
+        "errors": [],
+        "output_throughput": {
+          "median": 2529.5862897771467,
+          "min": 2529.175140913154,
+          "max": 2533.3850219720916
+        },
+        "mean_ttft_ms": {
+          "median": 303.6376914878929,
+          "min": 301.53416079792805,
+          "max": 308.0765488348334
+        },
+        "median_tpot_ms": {
+          "median": 6.005753399833822,
+          "min": 6.000512153994045,
+          "max": 6.014355948219441
+        }
+      },
+      "64": {
+        "status": "VALID",
+        "errors": [],
+        "output_throughput": {
+          "median": 3941.106833639922,
+          "min": 3937.2145799601635,
+          "max": 3947.889215649382
+        },
+        "mean_ttft_ms": {
+          "median": 705.1696476123652,
+          "min": 700.3786663963183,
+          "max": 715.6602114141606
+        },
+        "median_tpot_ms": {
+          "median": 15.584963988747178,
+          "min": 15.53996827909477,
+          "max": 15.59098299710173
+        }
+      }
+    },
+    "NVFP4": {
+      "1": {
+        "status": "NO-RESULT",
+        "errors": [
+          "c1-r1.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T075434Z-3719/bench/NVFP4/c1-r1.json'",
+          "c1-r2.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T075434Z-3719/bench/NVFP4/c1-r2.json'",
+          "c1-r3.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T075434Z-3719/bench/NVFP4/c1-r3.json'"
+        ]
+      },
+      "16": {
+        "status": "NO-RESULT",
+        "errors": [
+          "c16-r1.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T075434Z-3719/bench/NVFP4/c16-r1.json'",
+          "c16-r2.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T075434Z-3719/bench/NVFP4/c16-r2.json'",
+          "c16-r3.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T075434Z-3719/bench/NVFP4/c16-r3.json'"
+        ]
+      },
+      "64": {
+        "status": "NO-RESULT",
+        "errors": [
+          "c64-r1.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T075434Z-3719/bench/NVFP4/c64-r1.json'",
+          "c64-r2.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T075434Z-3719/bench/NVFP4/c64-r2.json'",
+          "c64-r3.json: [Errno 2] No such file or directory: '/workspace/quant-lab/results/runs/20261007T075434Z-3719/bench/NVFP4/c64-r3.json'"
+        ]
+      }
+    }
+  }
+}
