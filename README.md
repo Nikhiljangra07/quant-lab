@@ -59,7 +59,7 @@ The runner stops compute at the budget deadline; it cannot stop the rental. Copy
 
 Exploratory: [explore/](explore/) holds `explore_quant.py`, the `run_explore*.sh` sequence exactly as run, and `summarize_explore.py`.
 
-Every artifact under `results/runs/<id>/` is what the pod produced: stage logs, per-sample scores with document and prompt hashes, generation telemetry, benchmark JSON, `pip freeze`, `nvidia-smi`, the frozen source copy and its hashes. Checkpoints are not in git (sizes in the tables); the GO candidates are on Hugging Face under `Nikhil0097`.
+Every artifact under `results/runs/<id>/` is what the pod produced: stage logs, per-sample scores with document and prompt hashes, generation telemetry, benchmark JSON, `pip freeze`, `nvidia-smi`, the frozen source copy and its hashes. Checkpoints are not in git (sizes in the tables). The two exploratory GO candidates are on Hugging Face with their cards: [Nikhil0097/Qwen3-4B-Instruct-2507-NVFP4](https://huggingface.co/Nikhil0097/Qwen3-4B-Instruct-2507-NVFP4) and [Nikhil0097/Qwen3-4B-Instruct-2507-W4A16-MLP](https://huggingface.co/Nikhil0097/Qwen3-4B-Instruct-2507-W4A16-MLP).
 
 ## Credits and tooling
 
