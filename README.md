@@ -2,7 +2,7 @@
 
 A one-afternoon, pre-registered quantization study of **Qwen3-4B-Instruct-2507** on a single RTX PRO 6000 Blackwell (96 GB, SM120), run on RunPod for about $5. Question: do W4A16 and NVFP4 quants of this model hold the BF16 reference on a reasoning eval and an instruction-following eval, and what do they buy in vLLM throughput?
 
-Everything here is published: the frozen protocol, the go/no-go bars written before any GPU minute, the run that failed, the amendment that fixed it, the pre-registered result (a NO-GO), and an exploratory series that explains it. Solo work by Nikhil Jangra, October 7, 2026.
+The published record includes the frozen protocol, the go/no-go bars written before any GPU minute, the run that failed, the amendment that fixed it, the pre-registered result (a NO-GO), and an exploratory series investigating it. Solo work by Nikhil Jangra, October 7, 2026.
 
 ## The pre-registered result
 
@@ -30,12 +30,14 @@ Chosen after seeing the result, so reported as hypotheses, single attempts each.
 | recipe | GSM8K | IFEval | weights | c=1 tok/s | verdict |
 |---|---:|---:|---:|---:|---|
 | W4A16 g32, all Linear | 76.35% (−4.2) | 80.59% (−1.7) | 2.82 GB | — | NO-GO |
-| W4A16 g128, **MLP only** (attention BF16) | 82.56% (+2.0) | 82.44% (+0.2) | 4.05 GB | 230 | GO |
-| NVFP4, **Marlin kernel** | 78.62% (−1.9) | 82.26% (0.0) | 2.82 GB | 262 | GO |
-| FP8 dynamic | 81.50% (+1.0) | 82.07% (−0.2) | 4.41 GB | — | GO |
+| W4A16 g128, **MLP only** (attention BF16) | 82.56% (+2.0) | 82.44% (+0.2) | 4.05 GB | 230 | GO (exploratory) |
+| NVFP4, **Marlin kernel** | 78.62% (−1.9) | 82.26% (0.0) | 2.82 GB | 262 | GO (exploratory) |
+| FP8 dynamic | 81.50% (+1.0) | 82.07% (−0.2) | 4.41 GB | — | GO (exploratory) |
 | INT8 W8A8 | — | — | 4.41 GB | — | unservable on SM120 in vLLM 0.25.0 |
 
-What the series says about the NO-GO: the loss comes from quantizing this 4B model's attention projections to INT4. Finer groups halve it; leaving q/k/v/o in BF16 removes it, for a fifth of the single-stream speedup and a third of the size saving. FP4 with group-16 scales (NVFP4) survives where INT4 does not. GSM8K strict-match also penalizes losing the `#### N` answer format: the lenient extractor's gap for the protocol W4A16 is 1.1 points, not 8. That is a hypothesis about format compliance, not a scored result.
+In these exploratory runs, finer INT4 groups reduced the GSM8K strict-match deficit, and keeping attention q/k/v/o in BF16 removed it in the point estimate. This suggests sensitivity to the quantization recipe; it does not establish a single underlying cause. The MLP-only recipe measured 230 tok/s versus 144 for BF16 (about 1.60×), with a 4.05 GB checkpoint; all-Linear W4A16 measured 283 tok/s (about 1.97×) at 2.65 GB. Exploratory throughput rows are single measurements, while protocol throughput rows are medians of three.
+
+GSM8K strict-match also depends on the `#### N` answer format: a lenient-extraction diagnostic reduced the protocol W4A16 gap to 1.1 points. This motivates a format-compliance hypothesis; it does not replace the registered strict-match result. NVFP4/Marlin and MLP-only INT4 cleared the specified point-estimate bars in this exploratory series. Passing those bars is not an equivalence test or a general deployment recommendation.
 
 ## What broke, and what was done about it
 
